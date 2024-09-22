@@ -17,12 +17,16 @@ export class AppComponent implements OnInit{
   constructor(public httpClient:HttpClient){}
 
   ngOnInit(): void {
-    this.httpClient.get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
+    this.todoList()
     .pipe(
       map(todos => todos.filter(a => a.completed)),
     )
     .subscribe((data) => {
       this.list = data;
     })
+  }
+
+  todoList():Observable<Todo[]>{
+    return this.httpClient.get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
   }
 }
